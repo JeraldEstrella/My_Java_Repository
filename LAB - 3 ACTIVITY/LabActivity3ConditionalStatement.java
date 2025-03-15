@@ -41,7 +41,7 @@ class LabActivity2EmployeeInformationSystemPart3 {
                 break;
             case 3: role = "Staff";
                 break;
-            case 4: role = "Inter";
+            case 4: role = "Intern";
                 break;
             default: role = "Undefined";
         }
