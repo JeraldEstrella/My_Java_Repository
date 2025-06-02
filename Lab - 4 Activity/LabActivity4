@@ -1,4 +1,3 @@
-
 import java.awt.*;
 import java.awt.event.*;
 
@@ -26,7 +25,7 @@ public class LabActivity4 {
         Label hoursWorkedLabel = new Label("Hours Worked");
         TextField hoursTextfield = new TextField(20);
 
-        Label rateLabel = new Label("Hours Worked");
+        Label rateLabel = new Label("Hourly Rate");
         TextField rateTextfield = new TextField(20);
 
         nameLabel.setBounds(10, 20, 80, 25);
@@ -94,22 +93,19 @@ public class LabActivity4 {
                     return;
                 }
 
-                if(hours.matches("[a-zA-Z]") && rate.matches("[a-zA-Z]")){
-                    outputTextfield.setText("Error: Hours worked and Rate worked must be a valid number");
-                    return;
-                };
+                try {
+                    float hoursfloat = Float.parseFloat(hours);
+                    float ratefloat = Float.parseFloat(rate);
+                    float salary = hoursfloat * ratefloat;
 
-                float hoursfloat = Float.parseFloat(hours);
-                float ratefloat = Float.parseFloat(rate);
-                float salary = hoursfloat * ratefloat;
-
-                outputTextfield.setText(
-                        "Full Name: " + firstname + " " + lastname + "\n" +
-                                "Age: " + age + " Years Old\n" +
-                                "Salary: PHP " + salary
-                );
-
-
+                    outputTextfield.setText(
+                            "Full Name: " + firstname + " " + lastname + "\n" +
+                                    "Age: " + age + " Years Old\n" +
+                                    "Salary: PHP " + salary
+                    );
+                } catch (NumberFormatException ex) {
+                    outputTextfield.setText("Error: Hours worked and Rate must be valid numbers.");
+                }
             }
         });
 
