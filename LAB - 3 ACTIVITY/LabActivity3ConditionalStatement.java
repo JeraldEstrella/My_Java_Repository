@@ -57,15 +57,15 @@ class LabActivity2EmployeeInformationSystemPart3 {
 
         System.out.println("\nEmployee Information");
         System.out.println("---------------------");
-        System.out.println("Full name: " + name.toUpperCase() + " " + lastName.toUpperCase());
-        System.out.println("Age: " + age + " years old");
-        System.out.println("Position: " + role);
-        System.out.println("Years to Retirement: " + (65 - age) + " years");
-        System.out.printf("Daily Salary: PHP %.2f\n", dailyWage);
-        System.out.printf("Weekly Salary: PHP %.2f\n", weeklySalary);
-        System.out.printf("Monthly Salary: PHP %.2f\n", monthlySalary);
-        System.out.printf("Gross Yearly Salary: PHP %.2f\n", grossYearlySalary);
-        System.out.printf("Net Yearly Salary: PHP %.2f\n", netYearlyWage);
+        System.out.println("Full name:                    " + lastName.toUpperCase() + ", " + name.toUpperCase());
+        System.out.println("Age:                          " + age + " years old");
+        System.out.println("Position:                     " + role);
+        System.out.println("Years to Retirement:          " + (65 - age) + " years");
+        System.out.printf("Daily Salary:                   PHP %.2f\n", dailyWage);
+        System.out.printf("Weekly Salary:                  PHP %.2f\n", weeklySalary);
+        System.out.printf("Monthly Salary:                 PHP %.2f\n", monthlySalary);
+        System.out.printf("Gross Yearly Salary:            PHP %.2f\n", grossYearlySalary);
+        System.out.printf("Net Yearly Salary:              PHP %.2f\n", netYearlyWage);
 
         scanner.close();
     }
