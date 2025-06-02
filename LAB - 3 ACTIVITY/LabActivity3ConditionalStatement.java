@@ -1,10 +1,9 @@
 import java.util.Scanner;
 
-class  LabActivity2EmployeeInformationSystemPart3{
+class LabActivity2EmployeeInformationSystemPart3 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        // User input
         System.out.print("Enter your first name: ");
         String name = scanner.nextLine();
 
@@ -14,7 +13,7 @@ class  LabActivity2EmployeeInformationSystemPart3{
         System.out.print("Enter your age: ");
         int age = scanner.nextInt();
 
-        if(age < 18 || age >= 65){
+        if (age < 18 || age >= 65) {
             System.out.println((age >= 65) ? "Senior Citizens are not allowed" : "Minor is not allowed");
             return;
         }
@@ -22,10 +21,10 @@ class  LabActivity2EmployeeInformationSystemPart3{
         System.out.print("Enter your hours worked per day: ");
         double hoursWorked = scanner.nextDouble();
 
-        if(hoursWorked <= 0 || hoursWorked > 24){
+        if (hoursWorked <= 0 || hoursWorked > 24) {
             System.out.println((hoursWorked > 24) ? "Number of hours worked cannot exceed 24 hours" : "Wrong input on daily work hours");
             return;
-        };
+        }
 
         System.out.print("Enter your hourly wage: ");
         double hourlyWage = scanner.nextDouble();
@@ -35,7 +34,7 @@ class  LabActivity2EmployeeInformationSystemPart3{
 
         String role;
 
-        switch (position){
+        switch (position) {
             case 1: role = "Manager";
                 break;
             case 2: role = "Supervisor";
@@ -47,17 +46,15 @@ class  LabActivity2EmployeeInformationSystemPart3{
             default: role = "Undefined";
         }
 
-        // Computations (keeping precision)
         double dailyWage = hourlyWage * hoursWorked;
         double weeklySalary = dailyWage * 5;
-        double monthlySalary = weeklySalary * 4;
-        double grossYearlySalary = monthlySalary * 12;
+        double grossYearlySalary = weeklySalary * 52;
+        double monthlySalary = grossYearlySalary / 12;
 
         double governmentBenefits = 1500;
         double taxDeduction = (grossYearlySalary > 250000) ? (grossYearlySalary * 0.32) : 0;
         double netYearlyWage = grossYearlySalary - taxDeduction - governmentBenefits;
 
-        // Output
         System.out.println("\nEmployee Information");
         System.out.println("---------------------");
         System.out.println("Full name: " + name.toUpperCase() + " " + lastName.toUpperCase());
@@ -70,7 +67,6 @@ class  LabActivity2EmployeeInformationSystemPart3{
         System.out.printf("Gross Yearly Salary: PHP %.2f\n", grossYearlySalary);
         System.out.printf("Net Yearly Salary: PHP %.2f\n", netYearlyWage);
 
-        // Close Scanner
         scanner.close();
     }
 }
