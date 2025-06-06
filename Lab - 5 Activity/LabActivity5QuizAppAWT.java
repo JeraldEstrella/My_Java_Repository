@@ -1,12 +1,12 @@
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class LabActivity5QuizAppSwing extends JFrame implements ActionListener {
-    JLabel questionLabel;
-    JRadioButton[] options = new JRadioButton[4];
-    ButtonGroup optionsGroup;
-    JButton nextButton;
+public class LabActivity5QuizAppAWT extends Frame implements ActionListener {
+    Label questionLabel;
+    Checkbox[] options = new Checkbox[4];
+    CheckboxGroup optionsGroup;
+    Button nextButton;
+    Label errorLabel;
 
     public static class Question {
         String questionText;
@@ -39,86 +39,95 @@ public class LabActivity5QuizAppSwing extends JFrame implements ActionListener {
         }, 1)
     };
 
-    public LabActivity5QuizAppSwing() {
+    public LabActivity5QuizAppAWT() {
         setTitle("Quiz App");
         setSize(500, 300);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        //question label
-        questionLabel = new JLabel("", JLabel.CENTER);
+        // question label
+        questionLabel = new Label("", Label.CENTER);
         questionLabel.setFont(new Font("Arial", Font.BOLD, 16));
         add(questionLabel, BorderLayout.NORTH);
 
-        //options panel
-        JPanel optionsPanel = new JPanel(new GridLayout(2, 2));
-        optionsGroup = new ButtonGroup();
+        // options panel
+        Panel optionsPanel = new Panel(new GridLayout(2, 2));
+        optionsGroup = new CheckboxGroup();
         for (int i = 0; i < 4; i++) {
-            options[i] = new JRadioButton();
+            options[i] = new Checkbox("", optionsGroup, false);
             options[i].setFont(new Font("Arial", Font.PLAIN, 14));
             options[i].setForeground(Color.BLUE);
-            optionsGroup.add(options[i]);
             optionsPanel.add(options[i]);
         }
         add(optionsPanel, BorderLayout.CENTER);
 
-        //button panel
-        JPanel buttonPanel = new JPanel(new BorderLayout());
-        nextButton = new JButton("Next");
+        // button panel
+        Panel buttonPanel = new Panel(new BorderLayout());
+        errorLabel = new Label("", Label.CENTER);
+        errorLabel.setFont(new Font("Arial", Font.PLAIN, 11));
+        buttonPanel.add(errorLabel, BorderLayout.NORTH);
+
+        nextButton = new Button("Next");
         nextButton.addActionListener(this);
         buttonPanel.add(nextButton, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
 
-        // Load the first question
+        // Load first question
         loadQuestion(currentQuestion);
+
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent we) {
+                System.exit(0);
+            }
+        });
     }
 
-    // Method to load a question based on the index
     public void loadQuestion(int questionIndex) {
         if (questionIndex < quiz.length) {
             questionLabel.setText(quiz[questionIndex].questionText);
             for (int i = 0; i < options.length; i++) {
-                options[i].setText(quiz[questionIndex].optionsText[i]);
+                options[i].setLabel(quiz[questionIndex].optionsText[i]);
+                options[i].setState(false);
             }
-            optionsGroup.clearSelection();
+               optionsGroup.setSelectedCheckbox(null);
         }
     }
 
-    // Action listener for the next button based on the index
     @Override
     public void actionPerformed(ActionEvent e) {
         int selectedOption = -1;
         for (int i = 0; i < options.length; i++) {
-            if (options[i].isSelected()) {
+            if (options[i].getState()) {
                 selectedOption = i;
                 break;
             }
         }
         if (selectedOption == -1) {
-            JOptionPane.showMessageDialog(this, "Please select an answer.");
+            errorLabel.setText("Please select an answer.");
             return;
         }
         if (selectedOption == quiz[currentQuestion].answerIndex) {
             score++;
+            currentQuestion++;
+            errorLabel.setText(""); 
         }
 
-        currentQuestion++;
         if (currentQuestion < quiz.length) {
             loadQuestion(currentQuestion);
         } else {
             questionLabel.setText("Quiz completed! Your score: " + score + "/" + quiz.length);
-            nextButton.setEnabled(false);
-            for (JRadioButton option : options) {
+            for (Checkbox option : options) {
                 option.setEnabled(false);
             }
+            nextButton.setEnabled(false);
         }
     }
 
-    // Main method to run the quiz application
     public static void main(String[] args) {
-        new LabActivity5QuizAppSwing().setVisible(true);
+        new LabActivity5QuizAppAWT().setVisible(true);
     }
 }
+   
+
 
 // With the help of GitHub Copilot, I implemented the use of a public class (Question)
 // and stored quiz data in a Question[] array. This structure allows for flexible
