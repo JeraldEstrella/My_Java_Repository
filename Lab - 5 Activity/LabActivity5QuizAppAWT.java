@@ -107,9 +107,11 @@ public class LabActivity5QuizAppAWT extends Frame implements ActionListener {
         }
         if (selectedOption == quiz[currentQuestion].answerIndex) {
             score++;
-            currentQuestion++;
+            errorLabel.setText(""); 
+        } else {
             errorLabel.setText(""); 
         }
+         currentQuestion++; 
 
         if (currentQuestion < quiz.length) {
             loadQuestion(currentQuestion);
